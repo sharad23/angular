@@ -27,5 +27,5 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 
 
 Authentication 
-username: yunesh
+username: yunes
 password: yunesh
