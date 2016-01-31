@@ -1,0 +1,298 @@
+<p><input type="text" ng-model="search" placeholder="Search"/>  <a ng-click="doSearch()" class="w3-btn btnplayit">Search</a></p>
+
+<div>
+    <table>
+		<tbody>
+			<tr>
+				<th>Id</th>
+				<th>Amount</th>
+				<th>Description</th>
+				<th>Brokers</th>
+				<th>Action</th> 
+			</tr>
+			
+			<tr ng-repeat="data in datas">
+			   
+				<td>{{ data.id }}</td>
+				<td>{{ data.amount }}</td>
+				<td>{{ data.description }}</td>
+				<td> 
+					 <span class="comma" ng-repeat="broker in data.brokers">
+						  {{ broker.broker }} 
+					 </span>
+
+				</td>
+				<td><a class="removeTrans w3-btn btnplayit" ng-click="removeTrans(data.id)">Remove</a>
+				</td>
+			   
+			</tr>
+		</tbody>
+    </table>
+</div>	
+    <div id="pagelinks" class="wrapper">
+		<section class="archive-pages">
+			<ul>
+				  <li class="previous"><a ng-disabled="offset == 0" ng-click="page(offset)">previous page</a></li>
+				  <li ng-repeat="n in [] | range:pages" ng-show="n > offset && n < offset + 6"><a  class="test" ng-click="page(n)" >{{ n }}</a></li>
+				  <li class="next"><a ng-disabled="offset == pages - 1" ng-click="page(offset+2)">next page</a></li>
+			</ul>
+		</section>
+    </div>
+
+<style>
+
+<style> 
+input[type=text] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border: 3px solid #ccc;
+    transition: 0.5s;
+    outline: none;
+}
+
+input[type=text]:focus {
+    border: 1px solid rgba(124, 126, 128, 0.42);
+}
+
+a.btnplayit, a.btnplayit:link, a.btnplayit:visited {
+    background-color: #FFAD33 !important;
+    padding: 1px 10px 2px 10px;
+}
+a.w3-btn, a.w3-btn:link, a.w3-btn:visited {
+    color: #FFFFFF;
+    background-color: #73AD21;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+}
+a.btnplayit:hover, a.btnplayit:active {
+    background-color: #ffffff;
+    color: #FFAD33;
+}
+a.btnplayit, a.btnplayit:link, a.btnplayit:visited {
+    background-color: #FFAD33;
+    padding: 1px 10px 2px 10px;
+}
+a.w3-btn:hover, a.w3-btn:active {
+    background-color: #ffffff;
+    color: #73AD21;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+}
+a.w3-btn, a.w3-btn:link, a.w3-btn:visited {
+    color: #FFFFFF;
+    background-color: #73AD21;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+}
+a{
+	cursor: pointer;
+}
+.w3-btn {
+    border: none;
+    display: inline-block;
+    outline: 0;
+    padding: 6px 16px;
+    vertical-align: middle;
+    overflow: hidden;
+    text-decoration: none !important;
+    color: #fff;
+    background-color: #000;
+    text-align: center;
+    transition: .2s ease-out;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+
+table {
+    font-size: 16px;
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+}
+table, th, td {
+    border: none;
+} 
+th {
+    padding-top: 11px;
+    padding-bottom: 11px;
+    background-color: #4CAF50;
+    color: white;
+}
+td,th {
+    border: 1px solid #ddd;
+    text-align: left;
+    padding: 8px;
+}
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+/* remove extra space before the comma */
+.comma:not(:first-child) {
+  margin-left: -.3em;  
+}
+
+/* no need to display empty elements */
+.comma:empty {
+  display: none;
+}
+
+.comma:not(:first-child):before {
+  content: ", ";
+}
+/*pagination*/
+
+
+.archive-pages{
+
+}
+.wrapper{
+  margin:auto;
+  width:700px;
+}
+/*****Delete this*****/
+
+.archive-pages li a:hover{
+  color:#000;
+}
+.archive-pages li.selected{
+  color:white; 
+}
+.archive-pages a,
+.archive-pages a:visited{
+  color:#555;
+}
+.archive-pages li.selected{
+  color:white;
+  padding:5px;
+  width:18px;
+  line-height:20px;
+  background: rgb(53,121,214); 
+  background: -moz-radial-gradient(center, ellipse cover,  rgba(53,121,214,1) 0%, rgba(53,121,214,1) 91%, rgba(27,85,157,1) 100%); 
+  background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,rgba(53,121,214,1)), color-stop(91%,rgba(53,121,214,1)), color-stop(100%,rgba(27,85,157,1))); 
+  background: -webkit-radial-gradient(center, ellipse cover,  rgba(53,121,214,1) 0%,rgba(53,121,214,1) 91%,rgba(27,85,157,1) 100%); 
+  background: -o-radial-gradient(center, ellipse cover,  rgba(53,121,214,1) 0%,rgba(53,121,214,1) 91%,rgba(27,85,157,1) 100%); 
+  background: -ms-radial-gradient(center, ellipse cover,  rgba(53,121,214,1) 0%,rgba(53,121,214,1) 91%,rgba(27,85,157,1) 100%); 
+  background: radial-gradient(ellipse at center,  rgba(53,121,214,1) 0%,rgba(53,121,214,1) 91%,rgba(27,85,157,1) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#3579d6', endColorstr='#1b559d',GradientType=1 ); 
+}
+.archive-pages li.selected:hover{
+  cursor:default;
+  background: rgb(53,121,214); 
+  background: -moz-radial-gradient(center, ellipse cover,  rgba(53,121,214,1) 0%, rgba(53,121,214,1) 91%, rgba(27,85,157,1) 100%); 
+  background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,rgba(53,121,214,1)), color-stop(91%,rgba(53,121,214,1)), color-stop(100%,rgba(27,85,157,1))); 
+  background: -webkit-radial-gradient(center, ellipse cover,  rgba(53,121,214,1) 0%,rgba(53,121,214,1) 91%,rgba(27,85,157,1) 100%); 
+  background: -o-radial-gradient(center, ellipse cover,  rgba(53,121,214,1) 0%,rgba(53,121,214,1) 91%,rgba(27,85,157,1) 100%); 
+  background: -ms-radial-gradient(center, ellipse cover,  rgba(53,121,214,1) 0%,rgba(53,121,214,1) 91%,rgba(27,85,157,1) 100%); 
+  background: radial-gradient(ellipse at center,  rgba(53,121,214,1) 0%,rgba(53,121,214,1) 91%,rgba(27,85,157,1) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#3579d6', endColorstr='#1b559d',GradientType=1 );
+}
+.archive-pages li:hover{
+  background: -moz-linear-gradient(top,  rgba(255,255,255,0) 0%, rgba(196,196,196,1) 100%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,255,255,0)), color-stop(100%,rgba(196,196,196,1))); 
+  background: -webkit-linear-gradient(top,  rgba(255,255,255,0) 0%,rgba(196,196,196,1) 100%); 
+  background: -o-linear-gradient(top,  rgba(255,255,255,0) 0%,rgba(196,196,196,1) 100%); 
+  background: -ms-linear-gradient(top,  rgba(255,255,255,0) 0%,rgba(196,196,196,1) 100%);
+  background: linear-gradient(to bottom,  rgba(255,255,255,0) 0%,rgba(196,196,196,1) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00ffffff', endColorstr='#c4c4c4',GradientType=0 ); 
+}
+.archive-pages li a{
+  cursor:pointer; 
+  line-height:20px;
+  display:block;
+  padding:5px;
+  float:left;
+  width:18px;
+  text-aling:center;
+}
+.archive-pages{
+  diaply:block;
+  background-color:#f4f4f4;
+  float:left;
+  padding:0px;
+  margin:0px;
+  font-size:.8em;
+  font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;
+  border:1px solid silver;
+  border-radius: 3px; 
+  -moz-border-radius: 3px; 
+  -webkit-border-radius: 3px;
+}
+.archive-pages ul{
+  float:left;
+  margin:0px;
+  padding:10px;
+  list-style:none;
+}
+.archive-pages li{
+  border:1px solid silver;
+  float:left;
+  font-weight:700;
+  margin:0 2px;
+  text-align:center;
+  border-radius: 3px; 
+  -moz-border-radius: 3px; 
+  -webkit-border-radius: 3px;  
+  background: -moz-linear-gradient(top,  rgba(255,255,255,0) 0%, rgba(214,214,214,1) 100%); 
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,255,255,0)), color-stop(100%,rgba(214,214,214,1))); 
+  background: -webkit-linear-gradient(top,  rgba(255,255,255,0) 0%,rgba(214,214,214,1) 100%); 
+  background: -o-linear-gradient(top,  rgba(255,255,255,0) 0%,rgba(214,214,214,1) 100%); 
+  background: -ms-linear-gradient(top,  rgba(255,255,255,0) 0%,rgba(214,214,214,1) 100%); 
+  background: linear-gradient(to bottom,  rgba(255,255,255,0) 0%,rgba(214,214,214,1) 100%); 
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00ffffff', endColorstr='#d6d6d6',GradientType=0 );
+}
+.archive-pages .first a,
+.archive-pages .previous a,
+.archive-pages .next a,
+.archive-pages .last a{
+  overflow:hidden;
+  white-space:nowrap;
+  -webkit-transition-duration: 300ms;
+  -webkit-transition-property: width,text-indent,letter-spacing;
+  -webkit-transition-timing-function: ease;
+  -moz-transition-duration: 300ms;
+  -moz-transition-property: width,text-indent,letter-spacing;
+  -moz-transition-timing-function: ease;
+  -o-transition-duration: 300ms;
+  -o-transition-property: width,text-indent,letter-spacing;
+  -o-transition-timing-function: ease;
+}
+.archive-pages a{
+  text-decoration:none; 
+}
+.archive-pages .next a:after,
+.archive-pages .last a:after{
+  content:" »";
+}
+.archive-pages .first a:before,
+.archive-pages .previous a:before{
+  content:'« '
+}
+.archive-pages .first a:hover,
+.archive-pages .previous a:hover,
+.archive-pages .next a:hover,
+.archive-pages .last a:hover{
+  width: 100px;
+  text-indent:0;
+  letter-spacing:0px;
+}
+.archive-pages .first a{
+  text-indent:+6px;
+  letter-spacing:10px;
+}
+.archive-pages .previous a{
+  text-indent:+7px;
+  letter-spacing:10px;
+}
+.archive-pages .next a{
+  text-indent:-159px;
+  letter-spacing:10px;
+}
+.archive-pages .last a{
+    text-indent:-154px;
+  letter-spacing:10px;
+}
+
+</style>
+</style>

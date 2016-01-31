@@ -1,0 +1,128 @@
+<div ng-include="'./packages/templates/sidebar.html'"></div>
+
+<div>
+    <p>{{ user.username }}</p>
+    <div datatable></div>
+    <table>
+        <!--<tr>
+    		<td>Id</td>
+            <td>Amount</td>
+            <td>Description</td>
+            <td>Broker</td>
+            <td></td> 
+    	</tr>
+    	<tr ng-repeat="trans in transactions">
+    	   
+    	    <td>{{ trans.id }}</td>
+            <td>{{ trans.amount }}</td>
+            <td>{{ trans.description }}</td>
+            <td> 
+                 <p ng-repeat="broker in trans.brokers">
+                      {{ broker.broker }}  <a>[-]</a>
+                 </p>
+
+            </td>
+            <td><a ng-click="removeTrans(trans.id)">[-]</a></td>
+           
+    	</tr>-->
+		
+		<tr><th colspan=4>Add</th></tr>
+    	<tbody>
+        <tr>
+            <td><label name="amount"><span>Amount:</span></label><input placeholder="Amount" ng-model="newTransaction.amount"></td>
+            <td><label name="description"><span>Description:</span></label><input placeholder="Description" ng-model="newTransaction.description"></td>
+            <td test2 id="test22">
+                 <!--<p>
+                     <input placeholder="Broker" ng-model="newTransaction.brokers[0]" style="width: 99%">
+                     <a>[+]</a>
+                 </p>-->
+                 
+                 <div ng-repeat="newBroker in newTransaction.brokers track by $index">
+					<label name="broker"><span>Broker:</span></label>
+                     <input placeholder="Broker" ng-model="newTransaction.brokers[$index]">
+                     <a ng-click="removeNewBroker($index)" class="w3-btn btnplayit">Remove</a>
+                 </div>
+				 <a ng-click="addBroker()"class="w3-btn btnplayit">Add</a>
+            </td>
+            <td><a ng-click="addTrans()"class="w3-btn btnplayit">Save</a></td>
+
+            {{ error }}
+        </tr>
+    </tbody>
+    </table>
+</div>
+
+
+<style>
+table {
+    font-size: 16px;
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+}
+table, th, td {
+    border: none;
+} 
+th {
+    padding-top: 11px;
+    padding-bottom: 11px;
+    background-color: #4CAF50;
+    color: white;
+}
+td,th {
+    border: 1px solid #ddd;
+    text-align: left;
+    padding: 8px;
+}
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+a.btnplayit, a.btnplayit:link, a.btnplayit:visited {
+    background-color: #FFAD33 !important;
+    padding: 1px 10px 2px 10px;
+}
+a.w3-btn, a.w3-btn:link, a.w3-btn:visited {
+    color: #FFFFFF;
+    background-color: #73AD21;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+}
+a.btnplayit:hover, a.btnplayit:active {
+    background-color: #ffffff;
+    color: #FFAD33;
+}
+a.btnplayit, a.btnplayit:link, a.btnplayit:visited {
+    background-color: #FFAD33;
+    padding: 1px 10px 2px 10px;
+}
+a.w3-btn:hover, a.w3-btn:active {
+    background-color: #ffffff;
+    color: #73AD21;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+}
+a.w3-btn, a.w3-btn:link, a.w3-btn:visited {
+    color: #FFFFFF;
+    background-color: #73AD21;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+}
+a{
+	cursor: pointer;
+}
+.w3-btn {
+    border: none;
+    display: inline-block;
+    outline: 0;
+    padding: 6px 16px;
+    vertical-align: middle;
+    overflow: hidden;
+    text-decoration: none !important;
+    color: #fff;
+    background-color: #000;
+    text-align: center;
+    transition: .2s ease-out;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+
+</style>
